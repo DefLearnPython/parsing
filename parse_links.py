@@ -7,7 +7,7 @@ def get_all_collections():
     links = []
     link = "https://www.rusplitka.ru/catalog/keramogranit/"
 
-    for i in range(1, 2):  # Первая цифра, начало, вторая количество страниц + 1
+    for i in range(1, 40):  # Первая цифра, начало, вторая количество страниц + 1
         new_link = link + 'page-' + str(i) + '/'
         i += 1
         if i <= 40:
