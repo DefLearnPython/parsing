@@ -1,27 +1,18 @@
 import requests
 from bs4 import BeautifulSoup as BS
+from multiprocessing import Pool
 
 
-# Получаем все страницы с товаром
-def get_all_collections():
-    links = []
-    link = "https://www.rusplitka.ru/catalog/keramogranit/"
-
-    for i in range(1, 40):  # Первая цифра, начало, вторая количество страниц + 1
-        new_link = link + 'page-' + str(i) + '/'
-        i += 1
-        if i <= 40:
-            links.append(new_link)
-    return links
+def get_links():
+    pages_list = []
+    with open("pages_list.txt", 'r') as file:
+        for url in file:
+            url = url.strip()
+            pages_list.append(url)
+    return pages_list
 
 
-# Сохраняем все ссылки на страницы в список, и записываем его в текстовый файл
-pages_list = get_all_collections()
-with open("pages_list.txt", 'w') as file:
-    for line in pages_list:
-        file.write(line + '\n')
-    file.close()
-
+pages_list = get_links()
 
 # Получаем ссылки на все товары
 def get_catalog():
@@ -42,6 +33,7 @@ def get_catalog():
 
 catalog_list = get_catalog()
 
+#Сохраняем ссылки на товары в файл
 with open("catalog_list.txt", 'w') as file:
     for line in catalog_list:
         file.write(f"https://www.rusplitka.ru{line}\n")
