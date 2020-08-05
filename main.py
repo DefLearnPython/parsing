@@ -1,13 +1,7 @@
-from parse_links import get_all_collections, get_catalog
-from parse_items import get_links, get_data
+import  requests
 
 
-def main():
-    get_all_collections()
-    get_catalog()
-    get_links()
-    get_data()
-
-
-if __name__ == "__main__":
-    main()
+with open('catalog_list.txt', 'r') as f:
+    for url in f:
+        r = requests.get(url)
+        print(str(url) + '-----' + str(r))
